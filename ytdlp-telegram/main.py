@@ -68,7 +68,20 @@ print(
 )
 
 while True:
-    url = input("URL: ")
-    if url == "q":
-        quit()
-    download(url, True)
+    print(
+        "1. Download song\n"
+        "2. Upload songs to telegram from 'downloads'\n"
+        "3. Delete 'downloads' folder\n"
+        "4. Exit"
+    )
+
+    prompt = input("Prompt: ")
+    if prompt == "1":
+        url = input("Enter Youtube URL/Playlist: ")
+        download(url, True)
+    elif prompt == "2":
+        upload()
+    elif prompt == "3":
+        shutil.rmtree("downloads")
+    elif prompt == "4":
+        exit()
