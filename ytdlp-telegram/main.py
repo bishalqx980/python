@@ -16,25 +16,26 @@ def upload():
     API_URL = f"https://api.telegram.org/bot{bot_token}"
     method = "sendAudio"
 
-    file_name = os.listdir("downloads")[0]
-    with open(f"downloads/{file_name}", "rb") as f:
-        audio = {"audio": f.read()}
+    file_names = os.listdir("downloads")
+    for file_name in file_names:
+        with open(f"downloads/{file_name}", "rb") as f:
+            audio = {"audio": f.read()}
 
-    data = {
-        "chat_id": chat_id,
-        "title": file_name,
-        "caption": file_name,
-        "parse_mode": "MARKDOWN"
-    }
+        data = {
+            "chat_id": chat_id,
+            "title": file_name,
+            "caption": file_name,
+            "parse_mode": "MARKDOWN"
+        }
 
-    try:
-        r = requests.get(f"{API_URL}/{method}", data, files=audio)
-        if r.status_code != 200:
-            print(f"Error upload: {r.content}")
-        else:
-            print("Uploaded Successfully...!")
-    except Exception as e:
-        print(e)
+        try:
+            r = requests.get(f"{API_URL}/{method}", data, files=audio)
+            if r.status_code != 200:
+                print(f"Error upload: {r.content}")
+            else:
+                print("Uploaded Successfully...!")
+        except Exception as e:
+            print(e)
     
     shutil.rmtree("downloads")
 
