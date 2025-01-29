@@ -7,3 +7,4 @@ output.json
 
 # Exception
 !requirements.txt
+!valorant_instalocker/demo/*
