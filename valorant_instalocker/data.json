@@ -1,0 +1,27 @@
+{
+    "image_directory": "agents/",
+    "lockin_image": "assets/lock_confirm.png",
+    "agents": {
+        "breach": {},
+        "brimstone": {},
+        "chamber": {},
+        "clove": {},
+        "cypher": {},
+        "deadlock": {},
+        "fade": {},
+        "gekko": {},
+        "iso": {},
+        "jett": {},
+        "kayo": {},
+        "killjoy": {},
+        "neon": {},
+        "omen": {},
+        "phoenix": {},
+        "reyna": {},
+        "sage": {},
+        "sova": {},
+        "tejo": {},
+        "vyse": {},
+        "yoru": {}
+    }
+}

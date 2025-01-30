@@ -1,39 +1,97 @@
-import pyautogui
 import time
+import json
+import pyautogui
 
-def scan_and_lock(image_path, lock_confirm_img="assets/lock_confirm.png", confidence=0.8):
-    print("Scaning screen...")
+JSON_DATA = "data.json"
+
+def log(message):
+    print(f"» {message}")
+
+def scan_and_lock(agent_image, agent_name, lockin_image, duration=0.5, confidence=0.8):
+    log(f"Scaning screen for agent: {agent_name}")
     while True:
         try:
-            agent_location = pyautogui.locateCenterOnScreen(image_path, confidence=confidence)
+            agent_location = pyautogui.locateCenterOnScreen(agent_image, confidence=confidence)
             if agent_location:
-                print("Agent location found...")
-                pyautogui.click(agent_location)
-            
-            time.sleep(1)
-            
-            try:
-                lock_confirm_location = pyautogui.locateCenterOnScreen(lock_confirm_img, confidence=confidence)
-                if lock_confirm_location:
-                    print("LOCK IN button found...")
-                    pyautogui.click(lock_confirm_location)
-            except pyautogui.ImageNotFoundException:
-                pass
-            except Exception as e:
-                print(e)
+                pyautogui.click(agent_location, duration=duration)
+                log(f"Agent: {agent_name} found.")
                 break
-
-            print(f"Agent has been selected successfully...")
-            break
         except pyautogui.ImageNotFoundException:
             pass
         except Exception as e:
-            print(e)
+            log(e)
             break
 
-        time.sleep(1)
+    time.sleep(1)
+
+    log(f"Locking agent: {agent_name}")
+    while True:
+        try:
+            lock_confirm_location = pyautogui.locateCenterOnScreen(lockin_image, confidence=confidence)
+            if lock_confirm_location:
+                pyautogui.click(lock_confirm_location, duration=duration)
+                log(f"Agent: {agent_name} has been locked in.")
+        except pyautogui.ImageNotFoundException:
+            pass
+        except Exception as e:
+            log(e)
+            break
+
+        log(f"Valorant Instalock execution done...")
+        
+        break
+
+
+def main():
+    msg = """
+    𝓐 𝓹𝓻𝓸𝓳𝓮𝓬𝓽 𝓸𝓯
+
+    ▄▄▄▄    ██▓  ██████  ██░ ██  ▄▄▄       ██▓    
+    ▓█████▄ ▓██▒▒██    ▒ ▓██░ ██▒▒████▄    ▓██▒    
+    ▒██▒ ▄██▒██▒░ ▓██▄   ▒██▀▀██░▒██  ▀█▄  ▒██░    
+    ▒██░█▀  ░██░  ▒   ██▒░▓█ ░██ ░██▄▄▄▄██ ▒██░    
+    ░▓█  ▀█▓░██░▒██████▒▒░▓█▒░██▓ ▓█   ▓██▒░██████▒
+    ░▒▓███▀▒░▓  ▒ ▒▓▒ ▒ ░ ▒ ░░▒░▒ ▒▒   ▓▒█░░ ▒░▓  ░
+    ▒░▒   ░  ▒ ░░ ░▒  ░ ░ ▒ ░▒░ ░  ▒   ▒▒ ░░ ░ ▒  ░
+    ░    ░  ▒ ░░  ░  ░   ░  ░░ ░  ░   ▒     ░ ░   
+    ░       ░        ░   ░  ░  ░      ░  ░    ░  ░
+        ░                                        
+                            Valorant instalocker
+    """
+    print(msg)
+    with open(JSON_DATA, "r") as f:
+        data = json.load(f)
+    
+    agents = data.get("agents")
+    counter = 0
+    agent_names = []
+    for agent_name in agents:
+        print(f"{counter}. {agent_name}")
+        agent_names.append(agent_name)
+        counter += 1
+    
+    while True:
+        try:
+            user_input = input("\nAgent number » ")
+            if user_input == "q":
+                break
+
+            if int(user_input) in range(0, counter):
+                selected_agent_name = agent_names[int(user_input)]
+                image_path = f"{data.get('image_directory')}{selected_agent_name}.png"
+                # Calling function
+                scan_and_lock(image_path, selected_agent_name, data.get("lockin_image"))
+            else:
+                print("Wrong input!")
+
+        except ValueError as e:
+            print(e)
+        except Exception as e:
+            print(e)
+
+    
+
 
 
 if __name__ == "__main__":
-    image_location = f"agents/killjoy.png"
-    scan_and_lock(image_location)
+    main()
