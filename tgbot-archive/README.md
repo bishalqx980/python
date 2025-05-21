@@ -1,1 +1,0 @@
-# [tgbot](https://github.com/bishalqx980/tgbot)

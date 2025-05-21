@@ -1,4 +1,4 @@
-# Demo Video v1.0
-> release v1.0 - 29.01.2025
+# Valorant Instalocker
 
-<video src="demo/DemoVideo.mp4" alt="Demo Video v1.0" width="50%" controls autoplay muted></video>
+> release v1.0 - 29/01/2025
+[Demo Video v1.0](https://streamable.com/p0kgpo)

@@ -1,5 +1,5 @@
 {
-    "image_directory": "agents/",
+    "image_directory": "assets/agents/",
     "lockin_image": "assets/lock_confirm.png",
     "agents": {
         "breach": {},
